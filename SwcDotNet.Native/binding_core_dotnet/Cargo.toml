@@ -1,0 +1,21 @@
+[package]
+name = "binding_core_dotnet"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+interoptopus = "0.14.15"
+interoptopus_backend_csharp = "0.14.15"
+swc_core = {version = "0.58.0", features = [
+  "ecma_ast",
+  "common_concurrent",
+  "bundler",
+  "ecma_loader",
+  "ecma_transforms",
+  "ecma_visit",
+  "base_node",
+  "base_concurrent",
+]}
