@@ -1,0 +1,13 @@
+{
+  "name": "SwcDotNet",
+  "packageManager": "yarn@3.3.1",
+  "devDependencies": {
+    "@nrwl/devkit": "^15.6.0",
+    "@nrwl/js": "^15.6.0",
+    "@nx-dotnet/core": "^1.18.0",
+    "nx": "^15.6.0"
+  },
+  "scripts": {
+    "prepare": "nx g @nx-dotnet/core:restore"
+  }
+}
