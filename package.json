@@ -9,6 +9,8 @@
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "prepare": "nx g @nx-dotnet/core:restore"
+    "prepare": "nx g @nx-dotnet/core:restore",
+    "nuget:pack": "rm -rf ./dist/nuget && mkdir -p ./dist/nuget/ && nx run-many -t pack",
+    "nuget:push": "dotnet nuget push ./dist/nuget/*.nupkg -k $NUGET_API_KEY -s nuget.org --skip-duplicate"
   }
 }

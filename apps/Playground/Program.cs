@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Text.Json;
-using SwcDotNet.Native;
+using SwcDotNet;
 
 string ParseTypesScript(string s)
 {

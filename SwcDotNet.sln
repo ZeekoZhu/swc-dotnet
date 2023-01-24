@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "apps\Playground\Playground.csproj", "{8F4EE1C7-1E2B-4D91-A738-66E2A737A346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwcDotNet.Native", "libs\SwcDotNet.Native\SwcDotNet.Native.csproj", "{D6314BA8-AD5B-4F67-963D-158B03704C53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwcDotNet", "libs\SwcDotNet\SwcDotNet.csproj", "{D6314BA8-AD5B-4F67-963D-158B03704C53}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwcDotNet.Native.Linux_x86_64", "libs\SwcDotNet.Native.Linux_x86_64\SwcDotNet.Native.Linux_x86_64.csproj", "{ED86AAB0-A25C-483F-9040-1462D5BD8A15}"
 EndProject

@@ -17,7 +17,7 @@ fn bindings_csharp() -> Result<(), Error> {
         },
         my_inventory(),
     )
-        .write_file("../SwcDotNet.Native/SwcWrapInterop.cs")?;
+        .write_file("../SwcDotNet/SwcWrapInterop.cs")?;
 
     Ok(())
 }

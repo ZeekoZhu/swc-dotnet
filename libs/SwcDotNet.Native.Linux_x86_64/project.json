@@ -28,7 +28,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "libs/SwcDotNet.Native.Linux_x86_64",
-        "command": "dotnet pack -c Release -o ../../dist/nuget --no-build --include-symbols --include-source"
+        "command": "mkdir -p ../../dist/nuget && dotnet pack -c Release -o ../../dist/nuget --no-build"
       }
     }
   }

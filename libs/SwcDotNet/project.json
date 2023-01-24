@@ -1,8 +1,11 @@
 {
   "name": "native",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/SwcDotNet.Native",
+  "sourceRoot": "libs/SwcDotNet",
   "projectType": "library",
+  "implicitDependencies": [
+    "binding"
+  ],
   "targets": {
     "build": {
       "executor": "@nx-dotnet/core:build",
@@ -21,12 +24,13 @@
     },
     "pack": {
       "dependsOn": [
-        "build"
+        "build",
+        "^codegen"
       ],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "libs/SwcDotNet.Native",
-        "command": "dotnet pack -c Release -o ../../dist/nuget --no-build --include-symbols --include-source"
+        "cwd": "libs/SwcDotNet",
+        "command": "mkdir -p ../../dist/nuget && dotnet pack -c Release -o ../../dist/nuget --no-build"
       }
     }
   }
