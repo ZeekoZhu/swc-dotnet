@@ -12,7 +12,7 @@ fn bindings_csharp() -> Result<(), Error> {
         Config {
             class: "SwcWrapInterop".to_string(),
             dll_name: "swc_dotnet".to_string(),
-            namespace_mappings: NamespaceMappings::new("SwcDotNet.Native"),
+            namespace_mappings: NamespaceMappings::new("SwcDotNet"),
             ..Config::default()
         },
         my_inventory(),

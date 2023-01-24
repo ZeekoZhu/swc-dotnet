@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/SwcDotNet.Native.Linux_x86_64",
   "projectType": "library",
-  "implicitDependencies": ["binding"],
+  "implicitDependencies": ["native"],
   "targets": {
     "build": {
       "dependsOn": ["^build"],

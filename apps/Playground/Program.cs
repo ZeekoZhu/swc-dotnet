@@ -1,31 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Text.Json;
 using SwcDotNet;
 
-string ParseTypesScript(string s)
+string ParseTypesScript(string source)
 {
-    var parseOption = new
-    {
-        syntax = "typescript"
-    };
-    using var swcWrap = SwcWrap.New(
-        new ParseParams
-        {
-            filename = OptionStringRef.FromNullable(null),
-            options = JsonSerializer.Serialize(parseOption),
-            src = s
-        });
-    return swcWrap.Parse();
+    var parser = new SwcParser(new TsParserConfig());
+    return parser.Parse(source);
 }
 
-
-// var source = $"type Foo = {{ bar: string }}; const foo: Foo = {{ bar: '{12}' }};";
-for (var i = 0; i < 3_000_000; i++)
-{
-    var source = $"type Foo = {{ bar: string }}; const foo: Foo = {{ bar: '12' }};";
-    // var source = $"type Foo = {{ bar: string }}; const foo: Foo = {{ bar: '{i}' }};";
-    ParseTypesScript(source);
-}
+var source = "type Foo = { bar: string }; const foo: Foo = { bar: '12' };";
+for (var i = 0; i < 3_000_000; i++) ParseTypesScript(source);
 
 // Console.WriteLine(ParseTypesScript(source));

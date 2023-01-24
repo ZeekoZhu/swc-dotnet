@@ -5,10 +5,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using SwcDotNet.Native;
+using SwcDotNet;
 #pragma warning restore 0105
 
-namespace SwcDotNet.Native
+namespace SwcDotNet
 {
     public static partial class SwcWrapInterop
     {

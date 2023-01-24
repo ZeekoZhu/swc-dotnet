@@ -1,16 +1,19 @@
 {
-  "name": "native",
+  "name": "core",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/SwcDotNet",
   "projectType": "library",
   "implicitDependencies": [
-    "binding"
+    "native"
   ],
   "targets": {
     "build": {
       "executor": "@nx-dotnet/core:build",
+      "dependsOn": [
+        "^codegen"
+      ],
       "outputs": [
-        "{workspaceRoot}/dist/libs/native"
+        "{workspaceRoot}/dist/libs/core"
       ],
       "options": {
         "configuration": "Debug",

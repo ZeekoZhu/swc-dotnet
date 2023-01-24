@@ -1,12 +1,12 @@
 {
-  "root": "libs/binding",
-  "sourceRoot": "libs/binding/src",
+  "root": "libs/native",
+  "sourceRoot": "libs/native/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "libs/binding",
+        "cwd": "libs/native",
         "command": "cargo build -r --target x86_64-unknown-linux-gnu --target-dir ../../dist/libs/binding/",
         "outputPath": "dist/libs/binding"
       }
@@ -14,7 +14,7 @@
     "codegen": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "libs/binding",
+        "cwd": "libs/native",
         "command": "cargo test -r --target x86_64-unknown-linux-gnu --target-dir ../../dist/libs/binding/"
       }
     }
