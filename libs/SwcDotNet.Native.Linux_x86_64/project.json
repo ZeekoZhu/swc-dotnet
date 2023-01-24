@@ -1,0 +1,25 @@
+{
+  "name": "linux_x86_64",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/SwcDotNet.Native.Linux_x86_64",
+  "projectType": "library",
+  "implicitDependencies": ["binding"],
+  "targets": {
+    "build": {
+      "dependsOn": ["^build"],
+      "executor": "@nx-dotnet/core:build",
+      "outputs": [
+        "{workspaceRoot}/dist/libs/linux_x86_64"
+      ],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    }
+  }
+}

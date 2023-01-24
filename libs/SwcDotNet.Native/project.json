@@ -1,0 +1,23 @@
+{
+  "name": "native",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/SwcDotNet.Native",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx-dotnet/core:build",
+      "outputs": [
+        "{workspaceRoot}/dist/libs/native"
+      ],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    }
+  }
+}

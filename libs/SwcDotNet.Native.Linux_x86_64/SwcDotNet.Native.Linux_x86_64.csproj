@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <None Remove="..\SwcDotNet.Native\binding_core_dotnet\target\x86_64-unknown-linux-gnu\release\libswc_dotnet.so" />
-    <Content Include="..\SwcDotNet.Native\binding_core_dotnet\target\x86_64-unknown-linux-gnu\release\libswc_dotnet.so">
+    <Content Include="..\..\dist\libs\binding\x86_64-unknown-linux-gnu\release\libswc_dotnet.so">
       <Link>libswc_dotnet.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
