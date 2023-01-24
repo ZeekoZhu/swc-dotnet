@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\libs\SwcDotNet.Native.Linux_x86_64\SwcDotNet.Native.Linux_x86_64.csproj" />
+    <ProjectReference Include="..\..\libs\SwcDotNet.Native\SwcDotNet.Native.csproj" />
     <ProjectReference Include="..\SwcDotNet.Native\SwcDotNet.Native.csproj" />
     <ProjectReference Include="..\SwcDotNet.Native\SwcDotNet.Native.Linux_x86_64.csproj" />
   </ItemGroup>

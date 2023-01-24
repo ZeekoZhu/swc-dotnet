@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "Playground\Playground.csproj", "{8F4EE1C7-1E2B-4D91-A738-66E2A737A346}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "apps\Playground\Playground.csproj", "{8F4EE1C7-1E2B-4D91-A738-66E2A737A346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwcDotNet.Native.Linux_x86_64", "SwcDotNet.Native\SwcDotNet.Native.Linux_x86_64.csproj", "{2FFEA735-43FB-4269-9228-C7694003F37B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwcDotNet.Native", "libs\SwcDotNet.Native\SwcDotNet.Native.csproj", "{D6314BA8-AD5B-4F67-963D-158B03704C53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwcDotNet.Native", "SwcDotNet.Native\SwcDotNet.Native.csproj", "{D6314BA8-AD5B-4F67-963D-158B03704C53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwcDotNet.Native.Linux_x86_64", "libs\SwcDotNet.Native.Linux_x86_64\SwcDotNet.Native.Linux_x86_64.csproj", "{ED86AAB0-A25C-483F-9040-1462D5BD8A15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,13 +22,13 @@ Global
 		{8F4EE1C7-1E2B-4D91-A738-66E2A737A346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F4EE1C7-1E2B-4D91-A738-66E2A737A346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F4EE1C7-1E2B-4D91-A738-66E2A737A346}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FFEA735-43FB-4269-9228-C7694003F37B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FFEA735-43FB-4269-9228-C7694003F37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FFEA735-43FB-4269-9228-C7694003F37B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FFEA735-43FB-4269-9228-C7694003F37B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D6314BA8-AD5B-4F67-963D-158B03704C53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D6314BA8-AD5B-4F67-963D-158B03704C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6314BA8-AD5B-4F67-963D-158B03704C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6314BA8-AD5B-4F67-963D-158B03704C53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED86AAB0-A25C-483F-9040-1462D5BD8A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED86AAB0-A25C-483F-9040-1462D5BD8A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED86AAB0-A25C-483F-9040-1462D5BD8A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED86AAB0-A25C-483F-9040-1462D5BD8A15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
