@@ -509,3 +509,6 @@ apps/*/bin
 apps/*/obj
 libs/*/bin
 libs/*/obj
+
+# nx
+dist

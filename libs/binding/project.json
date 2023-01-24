@@ -1,0 +1,22 @@
+{
+  "root": "libs/binding",
+  "sourceRoot": "libs/binding/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/binding",
+        "command": "cargo build -r --target x86_64-unknown-linux-gnu --target-dir ../../dist/libs/binding/",
+        "outputPath": "dist/libs/binding"
+      }
+    },
+    "codegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/binding",
+        "command": "cargo test -r --target x86_64-unknown-linux-gnu --target-dir ../../dist/libs/binding/"
+      }
+    }
+  }
+}
