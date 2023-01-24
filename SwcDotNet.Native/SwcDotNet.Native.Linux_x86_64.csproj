@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>SwcDotNet.Native.Linux</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="binding_core_dotnet\target\x86_64-unknown-linux-gnu\release\libswc_dotnet.so" />
+    <Content Include="binding_core_dotnet\target\x86_64-unknown-linux-gnu\release\libswc_dotnet.so">
+      <Link>libswc_dotnet.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="binding_core_dotnet\bindings\csharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="binding_core_dotnet\bindings\csharp\SwcWrapInterop.cs" />
+  </ItemGroup>
+
+</Project>

@@ -1,14 +1,29 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+#![recursion_limit = "2048"]
+#![allow(dead_code)]
+
+use std::{sync::Arc};
+
+use interoptopus::{Inventory, InventoryBuilder, pattern};
+use swc_core::{
+    base::Compiler,
+    common::{sync::Lazy, FilePathMapping, SourceMap},
+};
+
+mod parse;
+mod util;
+
+static COMPILER: Lazy<Arc<Compiler>> = Lazy::new(|| {
+    let cm = Arc::new(SourceMap::new(FilePathMapping::empty()));
+
+    Arc::new(Compiler::new(cm))
+});
+
+fn get_compiler() -> Arc<Compiler> {
+    COMPILER.clone()
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+pub fn my_inventory() -> Inventory {
+    InventoryBuilder::new()
+        .register(pattern!(parse::SwcWrap))
+        .inventory()
 }
