@@ -1,7 +1,7 @@
 use std::{
     sync::Arc,
 };
-use std::ffi::{CString};
+use std::ffi::{CStr, CString};
 use anyhow::Error;
 
 use swc_core::{
@@ -19,6 +19,7 @@ use interoptopus::{ffi_service, ffi_service_ctor, ffi_service_method, ffi_type};
 use interoptopus::patterns::option::FFIOption;
 use interoptopus::patterns::string::AsciiPointer;
 use serde::de::DeserializeOwned;
+use swc_core::common::BytePos;
 
 
 pub fn deserialize_json<T>(json: &str) -> Result<T, serde_json::Error>
@@ -45,6 +46,21 @@ pub struct ParseParams<'a> {
     pub src: AsciiPointer<'a>,
     pub options: AsciiPointer<'a>,
     pub filename: FFIOption<StringRef<'a>>,
+}
+
+#[ffi_type]
+#[repr(C)]
+pub struct FFILoc {
+    /// 1-based line number.
+    pub line: u64,
+    /// 0-based column number.
+    pub col: u64,
+}
+
+impl Default for FFILoc {
+    fn default() -> Self {
+        Self { line: 0, col: 0 }
+    }
 }
 
 #[ffi_type(patterns(ffi_error))]
@@ -112,13 +128,18 @@ fn parse_with_swc(
 #[ffi_type(opaque)]
 pub struct SwcWrap {
     parse_result: CString,
+    compiler: Arc<Compiler>,
 }
 
 #[ffi_service(error = "FFIError", prefix = "swc_wrap_")]
 impl SwcWrap {
     #[ffi_service_ctor]
-    pub fn new(options: ParseParams) -> Result<Self, Error> {
+    pub fn new() -> Result<Self, Error> {
         let compiler = get_compiler();
+        Ok(Self { compiler, parse_result: CString::default() })
+    }
+    #[ffi_service_method(on_panic = "return_default")]
+    pub fn parse<'b>(it: &'b mut SwcWrap, options: ParseParams<'b>) -> AsciiPointer<'b> {
         let parse_opt = options.options.as_str().unwrap();
         let parse_opt = deserialize_json::<ParseOptions>(parse_opt).unwrap();
         let src = options.src.as_str().unwrap();
@@ -128,11 +149,17 @@ impl SwcWrap {
                 .map_err(|_| FFIError::Panic)
                 .ok())
             .unwrap_or(FileName::Anon);
-        let result = parse_with_swc(compiler, src, parse_opt, filename);
-        Ok(Self { parse_result: CString::new(result).unwrap() })
+        let result = parse_with_swc(it.compiler.clone(), src, parse_opt, filename);
+        it.parse_result = CString::new(result).unwrap();
+        AsciiPointer::from_cstr(&it.parse_result)
     }
+
     #[ffi_service_method(on_panic = "return_default")]
-    pub fn parse(&self) -> AsciiPointer {
-        AsciiPointer::from_cstr(&self.parse_result)
+    pub fn lookup_char(&self, byte_pos: u32) -> FFILoc {
+        let loc = self.compiler.cm.lookup_char_pos(BytePos(byte_pos));
+        FFILoc {
+            line: loc.line as u64,
+            col: loc.col_display as u64,
+        }
     }
 }

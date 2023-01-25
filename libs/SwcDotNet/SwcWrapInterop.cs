@@ -29,11 +29,24 @@ namespace SwcDotNet
         public static extern FFIError swc_wrap_destroy(ref IntPtr context);
 
         [DllImport(NativeLib, CallingConvention = CallingConvention.Cdecl, EntryPoint = "swc_wrap_new")]
-        public static extern FFIError swc_wrap_new(ref IntPtr context, ParseParams options);
+        public static extern FFIError swc_wrap_new(ref IntPtr context);
 
         [DllImport(NativeLib, CallingConvention = CallingConvention.Cdecl, EntryPoint = "swc_wrap_parse")]
-        public static extern IntPtr swc_wrap_parse(IntPtr context);
+        public static extern IntPtr swc_wrap_parse(IntPtr it, ParseParams options);
 
+        [DllImport(NativeLib, CallingConvention = CallingConvention.Cdecl, EntryPoint = "swc_wrap_lookup_char")]
+        public static extern FFILoc swc_wrap_lookup_char(IntPtr context, uint byte_pos);
+
+    }
+
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    public partial struct FFILoc
+    {
+        /// 1-based line number.
+        public ulong line;
+        /// 0-based column number.
+        public ulong col;
     }
 
     [Serializable]
@@ -98,10 +111,10 @@ namespace SwcDotNet
 
         private SwcWrap() {}
 
-        public static SwcWrap New(ParseParams options)
+        public static SwcWrap New()
         {
             var self = new SwcWrap();
-            var rval = SwcWrapInterop.swc_wrap_new(ref self._context, options);
+            var rval = SwcWrapInterop.swc_wrap_new(ref self._context);
             if (rval != FFIError.Ok)
             {
                 throw new InteropException<FFIError>(rval);
@@ -118,10 +131,15 @@ namespace SwcDotNet
             }
         }
 
-        public string Parse()
+        public string Parse(ParseParams options)
         {
-            var s = SwcWrapInterop.swc_wrap_parse(_context);
+            var s = SwcWrapInterop.swc_wrap_parse(_context, options);
             return Marshal.PtrToStringAnsi(s);
+        }
+
+        public FFILoc LookupChar(uint byte_pos)
+        {
+            return SwcWrapInterop.swc_wrap_lookup_char(_context, byte_pos);
         }
 
         public IntPtr Context => _context;

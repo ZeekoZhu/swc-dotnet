@@ -1,0 +1,34 @@
+﻿{
+  Declarations: [
+    {
+      File: multiple-type-aliases.ts,
+      Identifier: {
+        Name: Alice,
+        File: multiple-type-aliases.ts,
+        Start: {
+          Line: 2,
+          Column: 1
+        },
+        End: {
+          Line: 2,
+          Column: 21
+        }
+      }
+    },
+    {
+      File: multiple-type-aliases.ts,
+      Identifier: {
+        Name: Bob,
+        File: multiple-type-aliases.ts,
+        Start: {
+          Line: 3,
+          Column: 1
+        },
+        End: {
+          Line: 3,
+          Column: 19
+        }
+      }
+    }
+  ]
+}

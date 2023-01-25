@@ -8,8 +8,9 @@ public class TsDocParser : ICodeDocumentParser
 {
     public CodeDocument Parse(string fileName, string code)
     {
-        var lineNumberTransformer = new LineNumberTransformer(code);
-        var astParser = new SwcParser(new TsParserConfig { Tsx = true, Decorators = true, DynamicImport = false });
+        using var astParser =
+            new SwcParser(new TsParserConfig { Tsx = true, Decorators = true, DynamicImport = false });
+        var lineNumberTransformer = new LineNumberTransformer(astParser);
         var astJson = astParser.Parse(code, fileName);
         var ast = JsonDocument.Parse(astJson);
         if (ast is null)
@@ -24,9 +25,9 @@ public class TsDocParser : ICodeDocumentParser
                 aliasNode =>
                 {
                     var name = aliasNode.GetProperty("id").GetProperty("value").GetString()!;
-                    var start = aliasNode.GetProperty("span").GetProperty("start").GetInt32();
+                    var start = aliasNode.GetProperty("span").GetProperty("start").GetUInt32();
                     CodeLocation startLocation = lineNumberTransformer.ToLocation(start);
-                    var end = aliasNode.GetProperty("span").GetProperty("end").GetInt32();
+                    var end = aliasNode.GetProperty("span").GetProperty("end").GetUInt32();
                     CodeLocation endLocation = lineNumberTransformer.ToLocation(end);
                     var identifier = new Identifier(name, fileName, startLocation, endLocation);
                     var declaration = new Declaration
@@ -48,41 +49,16 @@ public class TsDocParser : ICodeDocumentParser
 
 public class LineNumberTransformer
 {
-    private readonly string _code;
+    private readonly SwcParser _parser;
 
-    public LineNumberTransformer(string code)
+    public LineNumberTransformer(SwcParser parser)
     {
-        _code = code;
+        _parser = parser;
     }
 
-    public CodeLocation ToLocation(int position)
+    public CodeLocation ToLocation(uint position)
     {
-        var target = position - 1;
-        uint line = 1;
-        uint column = 1;
-        for (var i = 0; i < _code.Length; i++)
-        {
-            if (i == target)
-            {
-                return new CodeLocation(line, column);
-            }
-
-            var c = _code[i];
-            if (c == '\n')
-            {
-                line++;
-                column = 1;
-            }
-            else if (c == '\r')
-            {
-                // just ignore \r
-            }
-            else
-            {
-                column++;
-            }
-        }
-
-        throw new ArgumentOutOfRangeException(nameof(position), $"Position '{position}' is out of range");
+        var (line, column) = _parser.GetPosition(position);
+        return new CodeLocation((uint)line, (uint)column + 1);
     }
 }

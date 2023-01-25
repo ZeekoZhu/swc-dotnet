@@ -1,5 +1,9 @@
 namespace Zeeko.TsAnalyzer.Model;
 
+/// <summary>
+/// </summary>
+/// <param name="Line">1 based line number</param>
+/// <param name="Column">1 based column number</param>
 public record CodeLocation(uint Line, uint Column);
 
 /// <summary>
