@@ -1,5 +1,5 @@
 {
-  "root": "libs/native",
+  "name": "native",
   "sourceRoot": "libs/native/src",
   "projectType": "library",
   "targets": {

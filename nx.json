@@ -7,6 +7,14 @@
       }
     }
   },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    }
+  },
   "plugins": [
     "@nx-dotnet/core"
   ]

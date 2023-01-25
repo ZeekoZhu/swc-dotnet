@@ -1,0 +1,19 @@
+﻿{
+  Declarations: [
+    {
+      File: type-alias-with-comments.ts,
+      Identifier: {
+        Name: Foo,
+        File: type-alias-with-comments.ts,
+        Start: {
+          Line: 3,
+          Column: 1
+        },
+        End: {
+          Line: 3,
+          Column: 19
+        }
+      }
+    }
+  ]
+}

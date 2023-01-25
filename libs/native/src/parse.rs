@@ -9,7 +9,8 @@ use swc_core::{
         config::{ErrorFormat, ParseOptions},
         Compiler,
     },
-    common::{comments::Comments, FileName},
+    ecma::{transforms::base::resolver, visit::VisitMutWith},
+    common::{comments::Comments, FileName, Mark},
 };
 
 use crate::{get_compiler, util::try_with};
@@ -79,22 +80,31 @@ fn parse_with_swc(
     options: ParseOptions,
     filename: FileName,
 ) -> String {
-    let fm =
-        compiler.cm.new_source_file(filename.clone(), src.to_owned());
-    let comments = if options.comments {
-        Some(compiler.comments() as &dyn Comments)
-    } else {
-        None
-    };
     let program = try_with(compiler.cm.clone(), false, ErrorFormat::Normal, |handler| {
-        compiler.parse_js(
-            fm,
-            handler,
-            options.target,
-            options.syntax,
-            options.is_module,
-            comments,
-        )
+        compiler.run(|| {
+            let fm =
+                compiler.cm.new_source_file(filename.clone(), src.to_owned());
+            let comments = if options.comments {
+                Some(compiler.comments() as &dyn Comments)
+            } else {
+                None
+            };
+            let mut p =
+                compiler.parse_js(
+                    fm,
+                    handler,
+                    options.target,
+                    options.syntax,
+                    options.is_module,
+                    comments,
+                ).unwrap();
+            p.visit_mut_with(&mut resolver(
+                Mark::new(),
+                Mark::new(),
+                options.syntax.typescript(),
+            ));
+            Ok(p)
+        })
     }).unwrap();
     serde_json::to_string(&program).unwrap()
 }
@@ -114,7 +124,7 @@ impl SwcWrap {
         let src = options.src.as_str().unwrap();
         let filename = options.filename.into_option()
             .and_then(|x| x.value.as_str()
-                .map(|str| FileName::Real(str.into()))
+                .map(|str| FileName::Real(str.parse().unwrap()))
                 .map_err(|_| FFIError::Panic)
                 .ok())
             .unwrap_or(FileName::Anon);
@@ -124,30 +134,5 @@ impl SwcWrap {
     #[ffi_service_method(on_panic = "return_default")]
     pub fn parse(&self) -> AsciiPointer {
         AsciiPointer::from_cstr(&self.parse_result)
-    }
-}
-
-#[ffi_type(opaque)]
-#[derive(Default)]
-pub struct Sample {
-    pub number: usize,
-    name: CString,
-}
-
-
-#[ffi_service(error = "FFIError", prefix = "sample_")]
-impl Sample {
-    #[ffi_service_ctor]
-    pub fn new_with(number: u32) -> Result<Self, Error> {
-        Ok(Self {
-            number: number as usize,
-            name: CString::new(format!("HELLO_{}", number)).unwrap(),
-        })
-    }
-
-    #[ffi_service_method(on_panic = "return_default")]
-    pub fn name(&self) -> AsciiPointer {
-        // FIXME: Name can only be called once. second invocation causes crash.
-        AsciiPointer::from_cstr(&self.name)
     }
 }

@@ -1,3 +1,9 @@
 {
-  "nugetPackages": {}
+  "nugetPackages": {
+    "Verify.Xunit": "19.7.1",
+    "FluentAssertions": "6.9.0",
+    "System.Text.Json": "7.0.1",
+    "SwcDotNet": "1.0.4",
+    "SwcDotNet.Native.Linux_x86_64": "1.0.3"
+  }
 }

@@ -8,7 +8,8 @@ string ParseTypesScript(string source)
     return parser.Parse(source);
 }
 
-var source = "type Foo = { bar: string }; const foo: Foo = { bar: '12' };";
-for (var i = 0; i < 3_000_000; i++) ParseTypesScript(source);
+var source = "\ntype Foo = { bar: string };\n";
+var ast = ParseTypesScript(source);
+Console.WriteLine(ast);
 
 // Console.WriteLine(ParseTypesScript(source));

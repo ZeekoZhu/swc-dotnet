@@ -1,0 +1,19 @@
+﻿{
+  Declarations: [
+    {
+      File: type-alias.ts,
+      Identifier: {
+        Name: Bar,
+        File: type-alias.ts,
+        Start: {
+          Line: 2,
+          Column: 1
+        },
+        End: {
+          Line: 2,
+          Column: 19
+        }
+      }
+    }
+  ]
+}
