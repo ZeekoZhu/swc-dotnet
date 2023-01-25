@@ -1,0 +1,19 @@
+﻿{
+  Declarations: [
+    {
+      File: variable-single.ts,
+      Identifier: {
+        Name: bar,
+        File: variable-single.ts,
+        Start: {
+          Line: 1,
+          Column: 7
+        },
+        End: {
+          Line: 1,
+          Column: 18
+        }
+      }
+    }
+  ]
+}

@@ -42,4 +42,14 @@ type Bob = string;";
         doc.Declarations.Should().HaveCount(2);
         return Verify(doc);
     }
+
+    [Fact]
+    public Task Variable_single()
+    {
+        var src = @"const bar = 'foo';";
+        var parser = new TsDocParser();
+        var doc = parser.Parse("variable-single.ts", src);
+        doc.Declarations.Should().HaveCount(1);
+        return Verify(doc);
+    }
 }

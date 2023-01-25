@@ -512,4 +512,5 @@ libs/*/obj
 
 # nx
 dist
+*.received.txt
 
